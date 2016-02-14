@@ -1,16 +1,11 @@
-if ARGV.size == 4 #защита от дурака
-  (x_main, y_main, x_user, y_user) = ARGV #массив в переменные
+require_relative "data/customer"
+require_relative "data/order"
+require_relative "data/manager"
+require_relative "data/programmer"
 
-  if x_main == x_user && y_main == y_user
-  	puts "Точка найдена!"
-  elsif x_main == x_user
-  	puts "х координата верна, y нет"
-  elsif y_main == y_user
-  	puts "y координата верна, x нет"
-  else
-  	puts "Близко, но нет"
+class ItCompanySimulator
+  def self.start
+    #сustomer = Customer.new({ requirements: 100, ... })
+    #order = Order.new({ сustomer: сustomer, сomplexity: 100, ... })
   end
-
-else
-	puts "Вы ввели #{ARGV.size} значений, а скрипт принимает только 4"
 end
