@@ -1,21 +1,30 @@
-require_relative "data/customer"
-require_relative "data/order"
-require_relative "data/manager"
-require_relative "data/programmer"
+require 'pry'
+require_relative "data/class.rb"
 
-class ItCompanySimulator
-  def self.start
-  	manager			= Manager.new({ communicability: 100, ability_to_organize: 75 })
+dev = Developer.new('Вася')
+p dev.can_work?
 
-    customer 		= Customer.new({ manager: manager, requirements: 100, remuneration: 30000, competence: 75, adequacy: 63 })
-    customer.manager == manager#=>true
-    
-    order 			= Order.new({ сustomer: сustomer, manager: manager, complexity: 100, clear: 30000, deadline: 75 })
-    order.сustomer == сustomer#=>true
-    order.manager == manager#=>true
+dev.status
+dev.add_task('Полить кактус')
+dev.add_task('Вынести мусор')
+dev.add_task('Сходить в магазин')
+dev.status
+p dev.can_work?
 
-    programmer 	= Programmer.new({ manager: manager, order: order, skill: 100, rationality: 30000, fatigue: 75 })
-    programmer.manager == manager#=>true
-    programmer.order == order#=>true
-  end
-end
+dev.add_task('Полить кактус')
+dev.add_task('Вынести мусор')
+dev.add_task('Сходить в магазин')
+dev.add_task('Полить кактус')
+dev.add_task('Вынести мусор')
+dev.add_task('Сходить в магазин')
+dev.add_task('Полить кактус')
+dev.add_task('Вынести мусор')
+dev.add_task('Сходить в магазин')
+dev.status
+p dev.can_add_task?
+#dev.tasks
+#dev.work!
+
+#binding.pry
+
+
