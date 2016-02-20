@@ -1,6 +1,6 @@
 class Developer
-  attr_reader :name, :tasklist
-  @@MAX_TASKS = 10
+  MAX_TASKS = 10
+  PHRASE    = "выполнена задача"
 
   def initialize(name)
     @name     = name
@@ -9,7 +9,7 @@ class Developer
 
   def add_task(task_name)
     begin
-      raise ArgumentError, "Слишком много работы!" if @tasklist.count == @@MAX_TASKS
+      raise ArgumentError, "Слишком много работы!" if @tasklist.count == self.class::MAX_TASKS
       @tasklist << task_name
       puts "#{@name}: добавлена задача \"#{task_name}\". Всего в списке задач: #{@tasklist.count}"
     rescue ArgumentError
@@ -24,9 +24,9 @@ class Developer
   def work!
     begin
       raise ArgumentError, "Нечего делать!" if @tasklist.count == 0
-      puts "#{@name}: выполнена задача \"#{@tasklist.slice!(0)}\". Осталось задач: #{@tasklist.count}"
+      puts "#{@name}: #{self.class::PHRASE} \"#{@tasklist.slice!(0)}\". Осталось задач: #{@tasklist.count}"
     rescue ArgumentError
-      puts "#{@name}: нет задач!"
+      puts "#{@name}: нечего делать!"
     end
   end
 
@@ -34,7 +34,7 @@ class Developer
     case @tasklist.count
       when 0
         puts "свободен"
-      when @@MAX_TASKS
+      when self.class::MAX_TASKS
         puts "занят"
       else
         puts "работаю"
@@ -42,10 +42,38 @@ class Developer
   end
 
   def can_add_task?
-    !(@tasklist.count == @@MAX_TASKS)
+    @tasklist.count != self.class::MAX_TASKS
   end
 
   def can_work?
     @tasklist.count != 0
+  end
+end
+
+class JuniorDeveloper < Developer
+  MAX_TASKS = 5
+  PHRASE    = "пытаюсь делать задачу"
+  def add_task(task_name)
+    begin
+      raise ArgumentError, "Слишком сложно!" if task_name.length > 20
+      super
+    rescue ArgumentError
+      puts "#{@name}: cлишком сложно!"
+    end
+  end
+end
+
+class SeniorDeveloper < Developer
+  MAX_TASKS = 15
+
+  def work!
+    if rand(2) == 0
+      super
+      if @tasklist.count > 0 #если остались задачи, делаем еще одну
+        super
+      end
+    else
+      puts "Что-то лень"
+    end
   end
 end
