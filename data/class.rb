@@ -9,50 +9,53 @@ class Developer
 
   def add_task(task_name)
     begin
-      raise ArgumentError, "Слишком много работы!" if @tasklist.count == self.class::MAX_TASKS
-      @tasklist << task_name
-      puts "#{@name}: добавлена задача \"#{task_name}\". Всего в списке задач: #{@tasklist.count}"
+      if @tasklist.count < self.class::MAX_TASKS
+        @tasklist << task_name
+        puts %Q{%s: добавлена задача "%s". Всего в списке задач: %i} %
+              [@name, task_name, @tasklist.count]
+      else
+        raise ArgumentError, "Слишком много работы!"
+      end
     rescue ArgumentError
       puts "#{@name}: слишком много работы!"
     end
   end
 
   def tasks
-    @tasklist.each_with_index{|val, i| puts "#{i+1}. #{val}"}
+    @tasklist.map.each_with_index{|val, i| "#{i+1}. #{val}"}
   end
 
   def work!
     begin
-      raise ArgumentError, "Нечего делать!" if @tasklist.count == 0
-      puts "#{@name}: #{self.class::PHRASE} \"#{@tasklist.slice!(0)}\". Осталось задач: #{@tasklist.count}"
+      raise ArgumentError, "Нечего делать!" if @tasklist.empty?
+      puts %Q{%s: %s "%s". Осталось задач: %i} %
+            [@name, self.class::PHRASE, @tasklist.slice!(0), @tasklist.count]
     rescue ArgumentError
       puts "#{@name}: нечего делать!"
     end
   end
 
   def status
-    case @tasklist.count
-      when 0
-        puts "свободен"
-      when self.class::MAX_TASKS
-        puts "занят"
-      else
-        puts "работаю"
+    if can_work?
+      can_add_task? ? (puts "работаю") : (puts "занят")
+    else 
+      puts "свободен"
     end
   end
 
   def can_add_task?
-    @tasklist.count != self.class::MAX_TASKS
+    @tasklist.count < self.class::MAX_TASKS
   end
 
   def can_work?
-    @tasklist.count != 0
+    @tasklist.count > 0
   end
 end
 
 class JuniorDeveloper < Developer
   MAX_TASKS = 5
   PHRASE    = "пытаюсь делать задачу"
+
   def add_task(task_name)
     begin
       raise ArgumentError, "Слишком сложно!" if task_name.length > 20
@@ -69,7 +72,7 @@ class SeniorDeveloper < Developer
   def work!
     if rand(2) == 0
       super
-      if @tasklist.count > 0 #если остались задачи, делаем еще одну
+      unless @tasklist.empty?
         super
       end
     else
