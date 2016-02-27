@@ -1,14 +1,39 @@
-require_relative "data/class.rb"
+require_relative "data/developer.rb"
+require_relative "data/junior.rb"
+require_relative "data/senior.rb"
+require_relative "data/team.rb"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # dev = Developer.new('Вася')
 # p dev.can_work?
 
-# dev.status
+# puts dev.status
 # dev.add_task('Полить кактус')
 # dev.add_task('Вынести мусор')
 # dev.add_task('Сходить в магазин')
-# dev.status
+# puts dev.status
 # p dev.can_work?
 
 # dev.add_task('Полить кактус')
@@ -20,10 +45,10 @@ require_relative "data/class.rb"
 # dev.add_task('Полить кактус')
 # dev.add_task('Вынести мусор')
 # dev.add_task('Сходить в магазин')
-# dev.status
+# puts dev.status
 # p dev.can_add_task?
 # puts dev.tasks
-# dev.status
+# puts dev.status
 # dev.add_task('Полить кактус')
 # dev.add_task('Вынести мусор')
 # dev.add_task('Сходить в магазин')
@@ -43,12 +68,12 @@ require_relative "data/class.rb"
 # dev.add_task('Полить кактус')
 # dev.add_task('Вынести мусор')
 # dev.add_task('Сходить в магазин')
-# dev.status
+# puts dev.status
 # dev.add_task('Сходить в магазин и купить хлеба и молока')
 # dev.add_task('Полить кактус')
 # dev.add_task('Вынести мусор')
 # dev.add_task('Сходить в магазин')
-# dev.status
+# puts dev.status
 # dev.work!
 # dev.work!
 # dev.work!
@@ -58,12 +83,12 @@ require_relative "data/class.rb"
 
 
 # dev = SeniorDeveloper.new('Степан')
-# dev.status
+# puts dev.status
 # dev.add_task('Полить кактус')
 # dev.add_task('Вынести мусор')
 # dev.add_task('Сходить в магазин')
 # puts dev.tasks
-# dev.status
+# puts dev.status
 # dev.work!
 # dev.work!
 # dev.work!
