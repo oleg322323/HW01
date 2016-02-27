@@ -18,28 +18,32 @@ team = Team.new do
   # * потом любому старшему
   priority :juniors, :developers, :seniors
 
-  on_task :developer do |dev, task|
-    puts %Q{Разработчик %s выполняет задачу %s}
-          [dev.name, task]
-  end
+  # on_task :developers do |dev, task|
+  #   puts %Q{Разработчик %s выполняет задачу %s} %
+  #         [dev.name, task]
+  # end
   # описываем дополнительные действия, когда задача выдана джуну
-  on_task :junior do |dev, task|
-    puts %Q{Отдали задачу %s разработчику %s, следите за ним!}
+  on_task :juniors do |dev, task|
+    puts %Q{Отдали задачу %s разработчику %s, следите за ним!} %
           [task, dev.name]
   end
 
   # ...и так можно для любого типа разработчиков описать, например:
-  on_task :senior do |dev, task|
-    puts %Q{%s сделает %s, но просит больше с такими глупостями не приставать}
+  on_task :seniors do |dev, task|
+    puts %Q{%s сделает %s, но просит больше с такими глупостями не приставать} %
           [dev.name, task]
   end
 end
 
-p team.seniors
-p team.developers
-p team.juniors
+# p team.seniors
+# p team.developers
+# p team.juniors
+# p team.all
 
-# team.add_task 'Погладить шнурки'
+10.times{
+  team.add_task 'П'
+}
+p team.report
 
 
 

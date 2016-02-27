@@ -1,5 +1,5 @@
 class Developer
-  attr_reader :name
+  attr_reader :name, :tasklist
 
   MAX_TASKS = 10
   PHRASE    = "выполнена задача"
