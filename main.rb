@@ -23,13 +23,13 @@ team = Team.new do
   #         [dev.name, task]
   # end
   # описываем дополнительные действия, когда задача выдана джуну
-  on_task :juniors do |dev, task|
+  on_task :junior do |dev, task|
     puts %Q{Отдали задачу %s разработчику %s, следите за ним!} %
           [task, dev.name]
   end
 
   # ...и так можно для любого типа разработчиков описать, например:
-  on_task :seniors do |dev, task|
+  on_task :senior do |dev, task|
     puts %Q{%s сделает %s, но просит больше с такими глупостями не приставать} %
           [dev.name, task]
   end
@@ -41,13 +41,12 @@ end
 # p team.all
 
 10.times{
-  team.add_task 'П'
+  team.add_task 'Обычная задача'
 }
-p team.report
 
-
-
-
+team.report
+team.add_task 'Сложная задача', complexity: :senior, to: 'Василий'
+team.report
 
 
 
