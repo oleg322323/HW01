@@ -1,6 +1,9 @@
 class Developer
+  attr_reader :name
+
   MAX_TASKS = 10
   PHRASE    = "выполнена задача"
+  GROUP     = :developers
 
   def initialize(name)
     @name     = name

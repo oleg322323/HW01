@@ -1,5 +1,6 @@
 class SeniorDeveloper < Developer
   MAX_TASKS = 15
+  GROUP     = :seniors
 
   def work!
     if rand(2) == 0
