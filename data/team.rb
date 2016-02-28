@@ -9,7 +9,7 @@ class Team
   end
 
   def add_task(task, *args)
-    if args == []
+    if args.empty?
       #реализация для хорошей сортировки
       # dev = dev_sort.slice(0)
       # if dev.can_add_task?
@@ -28,12 +28,19 @@ class Team
           break
         end
       end until dev_list.empty?
+
     else #есть аргументы
-      unless args[:to].nil? #только имя
-        dev = @devs.detect { |i| i.name == args[:to] }
-      end
+      args = args[0] #хеш идёт первым элементом
+
       unless args[:complexity].nil? #только группа
-        dev = @devs.detect { |i| i.class::GROUP == args[:complexity] }
+        dev = @devs.detect { |i| 
+          i.class::GROUP == dev_type_plural(args[:complexity])
+        }
+      end
+      unless args[:to].nil? #только имя
+        dev = @devs.detect { |i|
+          i.name == args[:to]
+        }
       end
 
       unless dev.nil?
@@ -86,11 +93,12 @@ class Team
     @priorities = values
   end
 
-  def on_task(dev_type_singular, &block)
-    #костыль с множественным числом
-    dev_type_plural = (dev_type_singular.to_s + 's').to_sym
-    #блок кода в массив
-    @task_action[dev_type_plural] = block
+  def on_task(dev, &block)
+    @task_action[dev_type_plural(dev)] = block
+  end
+
+  def dev_type_plural(dev) #костыль с множественным числом
+    (dev.to_s + 's').to_sym
   end
 
   def dev_sort

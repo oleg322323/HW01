@@ -45,7 +45,8 @@ end
 }
 
 team.report
-team.add_task 'Сложная задача', complexity: :senior, to: 'Василий'
+# team.add_task 'Сложная задача', complexity: :senior, to: 'Василий'
+team.add_task 'Сложная задача', complexity: :senior
 team.report
 
 
