@@ -51,16 +51,26 @@ class Team
     end
   end
 
-  def developers
-    @devs.select{ |i| i.class::GROUP == :developers }
-  end
+  # def developers
+  #   @devs.select{ |i| i.class::GROUP == :developers }
+  # end
 
-  def juniors
-    @devs.select{ |i| i.class::GROUP == :juniors }
-  end
+  # def juniors
+  #   @devs.select{ |i| i.class::GROUP == :juniors }
+  # end
 
-  def seniors
-    @devs.select{ |i| i.class::GROUP == :seniors }
+  # def seniors
+  #   @devs.select{ |i| i.class::GROUP == :seniors }
+  # end
+  
+  #DRY
+  #developers, juniors, seniors
+  def method_missing(name, *args)
+    unless @priorities.detect{ |i| i == name}.nil? #ищем любой тип разработчика
+      @devs.select{ |i| i.class::GROUP == name }   #если есть, вернуть список
+    else                                           #иначе стандартное исключение
+      raise NoMethodError, "undefined method '#{name}' for #{self}"
+    end
   end
 
   def all

@@ -40,91 +40,11 @@ end
 # p team.juniors
 # p team.all
 
-10.times{
-  team.add_task 'Обычная задача'
-}
+# 10.times{
+#   team.add_task 'Обычная задача'
+# }
 
-team.report
-# team.add_task 'Сложная задача', complexity: :senior, to: 'Василий'
-team.add_task 'Сложная задача', complexity: :senior
-team.report
-
-
-
-
-
-
-
-
-
-
-# dev = Developer.new('Вася')
-# p dev.class::GROUP
-# p dev.can_work?
-
-# puts dev.status
-# dev.add_task('Полить кактус')
-# dev.add_task('Вынести мусор')
-# dev.add_task('Сходить в магазин')
-# puts dev.status
-# p dev.can_work?
-
-# dev.add_task('Полить кактус')
-# dev.add_task('Вынести мусор')
-# dev.add_task('Сходить в магазин')
-# dev.add_task('Полить кактус')
-# dev.add_task('Вынести мусор')
-# dev.add_task('Сходить в магазин')
-# dev.add_task('Полить кактус')
-# dev.add_task('Вынести мусор')
-# dev.add_task('Сходить в магазин')
-# puts dev.status
-# p dev.can_add_task?
-# puts dev.tasks
-# puts dev.status
-# dev.add_task('Полить кактус')
-# dev.add_task('Вынести мусор')
-# dev.add_task('Сходить в магазин')
-# dev.work!
-# dev.add_task('Полить кактус')
-# dev.add_task('Вынести мусор')
-# dev.add_task('Сходить в магазин')
-# dev.add_task('Полить кактус')
-# dev.add_task('Вынести мусор')
-# dev.add_task('Сходить в магазин')
-# dev.add_task('Полить кактус')
-# dev.add_task('Вынести мусор')
-# dev.add_task('Сходить в магазин')
-# puts dev.tasks
-
-# dev = JuniorDeveloper.new('Петя')
-# dev.add_task('Полить кактус')
-# dev.add_task('Вынести мусор')
-# dev.add_task('Сходить в магазин')
-# puts dev.status
-# dev.add_task('Сходить в магазин и купить хлеба и молока')
-# dev.add_task('Полить кактус')
-# dev.add_task('Вынести мусор')
-# dev.add_task('Сходить в магазин')
-# puts dev.status
-# dev.work!
-# dev.work!
-# dev.work!
-# dev.work!
-# dev.work!
-# dev.work!
-
-
-# dev = SeniorDeveloper.new('Степан')
-# puts dev.status
-# dev.add_task('Полить кактус')
-# dev.add_task('Вынести мусор')
-# dev.add_task('Сходить в магазин')
-# puts dev.tasks
-# puts dev.status
-# dev.work!
-# dev.work!
-# dev.work!
-# dev.work!
-# dev.work!
-# dev.work!
+# team.report
+# team.add_task 'Сложная задача', to: 'Василий'
+# team.add_task 'Сложная задача', complexity: :senior
+# team.report
