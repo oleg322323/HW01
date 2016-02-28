@@ -2,8 +2,8 @@ class Team
   attr_reader :priorities, :task_action
 
   def initialize(&block)
-    @devs  = [] #если в команде небудет опр. вида разработчиков
-    @priorities  = [] #массив приоритетов
+    @devs        = [] #массив экземпляров
+    @priorities  = [] #массив групп разработчиков, индекс=приоритет
     @task_action = {} #хэш для блоков метода on_task
     instance_eval(&block)
   end
@@ -43,7 +43,7 @@ class Team
         }
       end
 
-      unless dev.nil?
+      unless dev.nil? #разработчик выбран
         add_task_direct(dev, task) if dev.can_add_task?
       else
         raise ArgumentError, "Такого разработчика нет!"
@@ -51,19 +51,16 @@ class Team
     end
   end
 
-  # def developers
-  #   @devs.select{ |i| i.class::GROUP == :developers }
-  # end
+  def report
+    puts dev_sort.map { |i|
+      %Q{%s (%s): %s} % [i.name, group_name(i), i.tasklist.join(', ')]
+    }.join("\n")
+  end
 
-  # def juniors
-  #   @devs.select{ |i| i.class::GROUP == :juniors }
-  # end
+  def all
+    @devs
+  end
 
-  # def seniors
-  #   @devs.select{ |i| i.class::GROUP == :seniors }
-  # end
-  
-  #DRY
   #developers, juniors, seniors
   def method_missing(name, *args)
     unless @priorities.detect{ |i| i == name}.nil? #ищем любой тип разработчика
@@ -73,20 +70,10 @@ class Team
     end
   end
 
-  def all
-    @devs
-  end
-
-  def report
-    puts dev_sort.map { |i|
-      %Q{%s (%s): %s} % [i.name, group_name(i), i.tasklist.join(', ')]
-    }.join("\n")
-  end
-
-
 
   private
 
+  #методы блока-конструктора
   def have_seniors(*names)
     names.each{ |i| @devs << SeniorDeveloper.new(i) }
   end
@@ -107,10 +94,7 @@ class Team
     @task_action[dev_type_plural(dev)] = block
   end
 
-  def dev_type_plural(dev) #костыль с множественным числом
-    (dev.to_s + 's').to_sym
-  end
-
+  #остальные
   def dev_sort
     #хорошая сортировочка, с задвиганием в конец занятых
     # @devs.sort_by do |i|
@@ -130,8 +114,12 @@ class Team
     end
   end
 
-  def group_name(dev)
-    dev.class::GROUP.to_s.chop!
+  def dev_type_plural(dev) #костыль с множественным числом
+    (dev.to_s + 's').to_sym
+  end
+
+  def group_name(dev) #для красивенького вывода в report
+    dev.class::GROUP.to_s.chop! #вернёт строку!
   end
 
   def add_task_direct(dev, task)

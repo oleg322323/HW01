@@ -3,6 +3,7 @@ require_relative "data/junior.rb"
 require_relative "data/senior.rb"
 require_relative "data/team.rb"
 
+require 'pp'
 
 team = Team.new do
   # создаём команду, описываем её в этом блоке
@@ -17,11 +18,7 @@ team = Team.new do
   # * потом любому обычному разработчику
   # * потом любому старшему
   priority :juniors, :developers, :seniors
-
-  # on_task :developers do |dev, task|
-  #   puts %Q{Разработчик %s выполняет задачу %s} %
-  #         [dev.name, task]
-  # end
+  
   # описываем дополнительные действия, когда задача выдана джуну
   on_task :junior do |dev, task|
     puts %Q{Отдали задачу %s разработчику %s, следите за ним!} %
@@ -35,16 +32,15 @@ team = Team.new do
   end
 end
 
-# p team.seniors
-# p team.developers
-# p team.juniors
-# p team.all
+puts team.seniors.map{|i| "#{i} @name=#{i.name}, @tasklist=#{i.tasklist}"}.join("\n")
+p team.developers
+p team.juniors
+pp team.all
+10.times{
+  team.add_task 'Обычная задача'
+}
 
-# 10.times{
-#   team.add_task 'Обычная задача'
-# }
-
-# team.report
-# team.add_task 'Сложная задача', to: 'Василий'
-# team.add_task 'Сложная задача', complexity: :senior
-# team.report
+team.report
+team.add_task 'Сложная задача', to: 'Василий'
+team.add_task 'Сложная задача', complexity: :senior
+team.report
