@@ -1,1 +1,23 @@
-<p>petitions list here</p>
+<h1>Последние петиции</h1>
+
+<div id="petition_header">
+  <%= link_to "Все петиции", all_petition_path %><br />
+  <%= link_to "Создать петицию", new_petition_path %>
+  <% if current_user %>
+      <br />
+      <%= link_to "Мои петиции", my_petition_path %>
+  <% end %>
+</div>
+
+<div id="petitions">
+  <% @petitions.each do |petition| %>
+      <h2>
+        <%= link_to petition.title, petition %>
+      </h2>
+      <div class="info">
+        by <%= petition.user_id %>
+        on <%= petition.created_at.strftime('%b %d, %Y') %>
+      </div>
+      <div class="content"><%= petition.text %></div>
+  <% end %>
+</div>

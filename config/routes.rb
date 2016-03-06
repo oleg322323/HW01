@@ -20,14 +20,19 @@ Rails.application.routes.draw do
   #   resources :products
   #   resources :home
 
-    #красивые ссылки вместо реальных путей
-    get 'signup', to: 'users#new', as: 'signup'
-    get 'login', to: 'sessions#new', as: 'login'
-    get 'logout', to: 'sessions#destroy', as: 'logout'
-    #роуты
-    resources :users
-    resources :sessions
-    resources :petitions
+  #красивые ссылки вместо реальных путей
+  get 'signup', to: 'users#new', as: 'signup'
+  get 'login', to: 'sessions#new', as: 'login'
+  get 'logout', to: 'sessions#destroy', as: 'logout'
+  #роуты
+  resources :users
+  resources :sessions
+  resources :petitions do
+    member do
+      get :all
+      get :my
+    end
+  end
   # Example resource route with options:
   #   resources :products do
   #     member do
