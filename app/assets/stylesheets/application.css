@@ -109,6 +109,25 @@ form .field, form .actions {
   font-size: 12px;
 }
 
+#petitions table, th, td {
+  border: 1px solid black;
+  padding: 6px;
+  padding-left: 12px;
+}
+#petitions table {
+  width: 70%;
+  border-collapse: collapse;
+}
+#petitions th {
+  height: 60px;
+  text-align: left;
+}
+#petitions td {
+  height: 30px;
+}
+
+
+
 #user_header {
   float: right;
 }
@@ -123,4 +142,12 @@ form .field, form .actions {
   margin-top: 20px;
   background-color: #faf3be;
   font-size: 15px;
+}
+#petition_header a {
+  line-height: 1.8;
+}
+
+#copyright {
+  color: #333;
+  font-size: 12px;
 }

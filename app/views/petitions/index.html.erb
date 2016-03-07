@@ -1,23 +1,17 @@
-<h1>Последние петиции</h1>
-
-<div id="petition_header">
-  <%= link_to "Все петиции", all_petition_path %><br />
-  <%= link_to "Создать петицию", new_petition_path %>
-  <% if current_user %>
-      <br />
-      <%= link_to "Мои петиции", my_petition_path %>
-  <% end %>
-</div>
+<h1><%= @header %></h1>
 
 <div id="petitions">
-  <% @petitions.each do |petition| %>
-      <h2>
-        <%= link_to petition.title, petition %>
-      </h2>
-      <div class="info">
-        by <%= petition.user_id %>
-        on <%= petition.created_at.strftime('%b %d, %Y') %>
-      </div>
-      <div class="content"><%= petition.text %></div>
-  <% end %>
+  <table>
+    <tr>
+      <th>Петиция</th>
+      <th>Автор</th>
+    </tr>
+    <% @petitions.reverse.each do |petition| %>
+        <tr>
+          <td><%= link_to petition.title, petition %></td>
+          <td><%= petition.user.first_name %>
+              <%= petition.user.last_name %></td>
+        </tr>
+    <% end %>
+  </table>
 </div>

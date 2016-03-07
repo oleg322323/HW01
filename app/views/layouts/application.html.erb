@@ -22,7 +22,25 @@
       <%= content_tag :div, msg, id: "flash_#{name}" %>
   <% end %>
 
+  <div id="header">
+    <h2><%= link_to 'Онлайн петиции нашего района', root_path %></h2>
+  </div>
+
+  <div id="petition_header">
+    <%= link_to "Все петиции", petitions_path( count: "all" ) %><br />
+    <% if current_user %>
+        <%= link_to "Создать петицию", new_petition_path %><br />
+        <%= link_to "Мои петиции", petitions_path( user: current_user ) %>
+    <% else %>
+        <%= link_to "Создать петицию", login_path %>
+    <% end %>
+  </div>
+
   <%= yield %>
+  <br><br><br>
+  <div id="copyright">
+    <p>&copy;Gubskiy Oleg, RubyBursa'05, 2016</p>
+  </div>
 </div>
 </body>
 </html>

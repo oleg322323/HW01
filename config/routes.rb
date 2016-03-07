@@ -27,12 +27,8 @@ Rails.application.routes.draw do
   #роуты
   resources :users
   resources :sessions
-  resources :petitions do
-    member do
-      get :all
-      get :my
-    end
-  end
+  resources :petitions
+
   # Example resource route with options:
   #   resources :products do
   #     member do

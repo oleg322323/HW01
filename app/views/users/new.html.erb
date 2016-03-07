@@ -1,4 +1,4 @@
-<h1>Sign Up</h1>
+<h1>Регистрация</h1>
 
 <%= form_for @user do |f| %>
     <% if @user.errors.any? %>
@@ -32,5 +32,5 @@
       <%= f.label "Подтверждение пароля" %><br />
       <%= f.password_field :password_confirmation %>
     </div>
-    <div class="actions"><%= f.submit "Sign Up" %></div>
+    <div class="actions"><%= f.submit "Зарегистрироваться" %></div>
 <% end %>
