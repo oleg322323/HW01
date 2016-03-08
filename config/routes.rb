@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :votes
   get 'sessions/new'
 
   resources :petitions

@@ -1,6 +1,6 @@
 class PetitionsController < ApplicationController
   #фильтр для авторизированных
-  before_filter :authorize, only: [:edit]
+  before_filter :authorize, only: [:edit, :delete]
 
   def new
     @petition = Petition.new
@@ -22,9 +22,11 @@ class PetitionsController < ApplicationController
       if params[:count] == "all"
         @petitions = Petition.all
         @header = "Все петиции"
+        # @option = 0
       else
         @petitions = Petition.all.last(10)
         @header = "Последние петиции"
+        # @option = 1
       end
     else #есть (ссылка на странице ведёт на свой ид, но можно вставить чужой)
       @petitions = Petition.all.select{ |petition| petition.user_id.to_s == params[:user] }

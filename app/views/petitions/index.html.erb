@@ -4,13 +4,19 @@
   <table>
     <tr>
       <th>Петиция</th>
-      <th>Автор</th>
+      <% if  %>
+        <th>Автор</th>
+      <% end %>
+      <th>Голоса</th>
+      <th>Дата создания</th>
     </tr>
     <% @petitions.reverse.each do |petition| %>
         <tr>
           <td><%= link_to petition.title, petition %></td>
           <td><%= petition.user.first_name %>
               <%= petition.user.last_name %></td>
+          <td><%= 0 %></td>
+          <td><%= petition.created_at.strftime('%d/%m/%Y %k:%M') %></td>
         </tr>
     <% end %>
   </table>

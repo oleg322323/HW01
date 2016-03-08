@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160306125905) do
+ActiveRecord::Schema.define(version: 20160308174924) do
 
   create_table "petitions", force: :cascade do |t|
     t.string   "title"
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(version: 20160306125905) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "password_digest"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.string   "user_id"
+    t.string   "petition_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
