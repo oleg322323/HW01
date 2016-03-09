@@ -1,22 +1,32 @@
-<h1><%= @header %></h1>
+<h1><%= @petitions[:header] %></h1>
 
 <div id="petitions">
   <table>
     <tr>
       <th>Петиция</th>
-      <% if  %>
+      <% unless (2 .. 3) === @petitions[:type] %>
         <th>Автор</th>
       <% end %>
       <th>Голоса</th>
       <th>Дата создания</th>
+      <% if @petitions[:type] == 2 %>
+          <th>Действия</th>
+      <% end %>
     </tr>
-    <% @petitions.reverse.each do |petition| %>
+    <% @petitions[:list].reverse.each do |petition| %>
         <tr>
           <td><%= link_to petition.title, petition %></td>
-          <td><%= petition.user.first_name %>
-              <%= petition.user.last_name %></td>
+          <% unless (2 .. 3) === @petitions[:type] %>
+            <td>
+              <%= petition.user.first_name %>
+              <%= petition.user.last_name %>
+            </td>
+          <% end %>
           <td><%= 0 %></td>
           <td><%= petition.created_at.strftime('%d/%m/%Y %k:%M') %></td>
+          <% if @petitions[:type] == 2 %>
+              <td><%=  %>Nil Nil</td>
+          <% end %>
         </tr>
     <% end %>
   </table>

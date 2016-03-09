@@ -1,6 +1,6 @@
 class PetitionsController < ApplicationController
   #фильтр для авторизированных
-  before_filter :authorize, only: [:edit, :delete]
+  before_filter :authorize, only: [:edit, :destroy]
 
   def new
     @petition = Petition.new
@@ -18,22 +18,25 @@ class PetitionsController < ApplicationController
   end
 
   def index
+    @petitions = {} #объявляем как пустой хешик, иначе ошибка
     if params[:user].nil? #нет ссылки на юзера
       if params[:count] == "all"
-        @petitions = Petition.all
-        @header = "Все петиции"
-        # @option = 0
+        @petitions[:type] = 0
+        @petitions[:list] = Petition.all
+        @petitions[:header] = "Все петиции"
       else
-        @petitions = Petition.all.last(10)
-        @header = "Последние петиции"
-        # @option = 1
+        @petitions[:type] = 1
+        @petitions[:list] = Petition.all.last(10)
+        @petitions[:header] = "Последние петиции"
       end
     else #есть (ссылка на странице ведёт на свой ид, но можно вставить чужой)
-      @petitions = Petition.all.select{ |petition| petition.user_id.to_s == params[:user] }
+      @petitions[:list] = Petition.all.select{ |petition| petition.user_id.to_s == params[:user] }
       if !(current_user.nil?) && params[:user] == current_user.id.to_s
-        @header = "Мои петиции"
+        @petitions[:type] = 2
+        @petitions[:header] = "Мои петиции"
       else
-        @header = "Петиции пользователя #{User.find(params[:user]).last_name} #{User.find(params[:user]).first_name}"
+        @petitions[:type] = 3
+        @petitions[:header] = "Петиции пользователя #{User.find(params[:user]).last_name} #{User.find(params[:user]).first_name}"
       end
     end
   end
@@ -54,6 +57,10 @@ class PetitionsController < ApplicationController
   #     render "edit"
   #   end
   # end
+
+  def destroy
+
+  end
 
   private
 
