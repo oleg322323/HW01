@@ -1,0 +1,11 @@
+<div id="petitions">
+  <h1><%= @petition.title %></h1>
+  <div class="content">
+    <%= @petition.text %>
+  </div><br />
+  <div class="info">
+    Создана <%= @petition.user.first_name %>
+    <%= @petition.user.last_name %>,
+    <%= @petition.created_at.strftime('%d %b %Y') %>
+  </div>
+</div>

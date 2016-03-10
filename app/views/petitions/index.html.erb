@@ -1,0 +1,17 @@
+<h1><%= @header %></h1>
+
+<div id="petitions">
+  <table>
+    <tr>
+      <th>Петиция</th>
+      <th>Автор</th>
+    </tr>
+    <% @petitions.reverse.each do |petition| %>
+        <tr>
+          <td><%= link_to petition.title, petition %></td>
+          <td><%= petition.user.first_name %>
+              <%= petition.user.last_name %></td>
+        </tr>
+    <% end %>
+  </table>
+</div>
