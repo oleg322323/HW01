@@ -17,12 +17,11 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
   # post 'vote', to: 'votes#create', as: 'vote'
-  post "vote" => "votes#create"
+  # post "vote" => "votes#create"
   #роуты
   resources :users
   resources :sessions
   resources :petitions
-
   resources :votes
   # do
   #   member do

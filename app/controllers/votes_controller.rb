@@ -2,11 +2,11 @@ class VotesController < ApplicationController
   def create
     vote = Vote.new(vote_params)
     if vote.save
-      flash.now.alert = "Голос засчитан"
+      flash.notice = "Голос засчитан"
     else
-      flash.now.alert = "Вы уже голосовали"
+      flash.alert = "Вы уже голосовали"
     end
-    redirect_back(fallback_location: root_path)
+    redirect_to :back
   end
 
   def vote_params

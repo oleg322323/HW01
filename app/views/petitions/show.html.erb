@@ -14,6 +14,7 @@
 
   <div class="actions">
     <% #button_to "Поддержать", vote_path( user_id: current_user.id, petition_id: @petition.id ) %>
-    <%= button_to "Поддержать", vote_path( user_id: @petition.user.id, petition_id: @petition ) %>
+    <% #button_to "Поддержать", votes_path( user_id: @petition.user.id, petition_id: @petition ), :method => :post %>
+    <%= button_to "Поддержать", votes_path(vote: {user_id: @petition.user.id, petition_id: @petition}), :method => :post %>
   </div>
 </div>

@@ -10,7 +10,7 @@
       <th>Голоса</th>
       <th>Дата создания</th>
       <% if @petitions[:type] == 2 %>
-          <th>Действия</th>
+          <th colspan="2">Действия</th>
       <% end %>
     </tr>
     <% @petitions[:list].reverse.each do |petition| %>
@@ -22,10 +22,11 @@
               <%= petition.user.last_name %>
             </td>
           <% end %>
-          <td><%= 0 %></td>
+          <td><%= petition.votes.count %></td>
           <td><%= petition.created_at.strftime('%d/%m/%Y %k:%M') %></td>
           <% if @petitions[:type] == 2 %>
-              <td><%=  %>Nil Nil</td>
+              <td><%=  %>Nil</td>
+              <td><%=  %>Nil</td>
           <% end %>
         </tr>
     <% end %>
