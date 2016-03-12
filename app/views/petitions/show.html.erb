@@ -2,19 +2,23 @@
   <h1>Петиция</h1>
   <h2><%= @petition.title %></h2>
   <div class="info">
-    <!--Создана <%= @petition.user.first_name %>
-    <%= @petition.user.last_name %>,-->
     <%= @petition.created_at.strftime('%d/%m/%Y %k:%M') %>
   </div>
   <div class="content">
-    <%= @petition.text.gsub("\r\n", "<br>") %>
+    <%= simple_format( @petition.text, ) %>
   </div><br />
   <p>Голосов: <%= @petition.votes.count %></p>
 
 
-  <div class="actions">
-    <% #button_to "Поддержать", vote_path( user_id: current_user.id, petition_id: @petition.id ) %>
-    <% #button_to "Поддержать", votes_path( user_id: @petition.user.id, petition_id: @petition ), :method => :post %>
-    <%= button_to "Поддержать", votes_path(vote: {user_id: @petition.user.id, petition_id: @petition}), :method => :post %>
-  </div>
+  <% if !current_user.nil? && current_user.id != @petition.user.id %>
+      <div class="actions">
+        <% #button_to "Поддержать", votes_path(vote: {user_id: @petition.user.id, petition_id: @petition}), method: :post %>
+        <%= button_to "Поддержать", votes_path(vote: {petition_id: @petition}), method: :post %>
+      </div>
+  <% else %>
+      <table style="width: 100px">
+        <tr><td><%= link_to "Изменить", edit_petition_path(@petition) %></td></tr>
+        <tr><td><%= link_to "Удалить", @petition, method: :delete, data: { confirm: 'Вы уверены?' } %></td></tr>
+      </table>
+  <% end %>
 </div>
