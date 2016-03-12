@@ -51,7 +51,7 @@ class PetitionsController < ApplicationController
 
   def update
     petition = Petition.find(params[:id])
-    if petition.user != current_user.id #тест несанкционированного доступа
+    if petition.user != current_user #тест несанкционированного доступа
       redirect_to :back, alert: "Ошибка доступа"
     else
       name = petition.title
@@ -65,7 +65,7 @@ class PetitionsController < ApplicationController
 
   def destroy
     petition = Petition.find(params[:id])
-    if petition.user != current_user.id
+    if petition.user != current_user
       redirect_to :back, alert: "Ошибка доступа"
     else
       name = petition.title

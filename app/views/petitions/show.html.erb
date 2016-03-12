@@ -2,17 +2,19 @@
   <h1>Петиция</h1>
   <h2><%= @petition.title %></h2>
   <div class="info">
+    Создана:
+    <%= @petition.user.first_name %>
+    <%= @petition.user.last_name %>, 
     <%= @petition.created_at.strftime('%d/%m/%Y %k:%M') %>
   </div>
   <div class="content">
-    <%= simple_format( @petition.text, ) %>
+    <%= simple_format( @petition.text.gsub(/[<>]/, '<' => '&lt;', '>' => '&gt;') ) %>
   </div><br />
   <p>Голосов: <%= @petition.votes.count %></p>
 
 
   <% if !current_user.nil? && current_user.id != @petition.user.id %>
       <div class="actions">
-        <% #button_to "Поддержать", votes_path(vote: {user_id: @petition.user.id, petition_id: @petition}), method: :post %>
         <%= button_to "Поддержать", votes_path(vote: {petition_id: @petition}), method: :post %>
       </div>
   <% else %>

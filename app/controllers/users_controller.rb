@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id #залогинивает сразу после регистрации
-      redirect_to root_url, notice: "Thank you for signing up!"
+      redirect_to root_url, notice: "Аккаунт создан"
     else
       render "new"
     end

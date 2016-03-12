@@ -2,10 +2,10 @@ class VotesController < ApplicationController
   before_filter :authorize, only: [:create]
 
   def create
-    vote = Vote.new(vote_params, user_id: current_user.id.to_s) #создаваться должен после условия, починить
-    if false #vote.user_id == current_user.id  #за свои голосовать нельзя
+    if Petition.find(params[:vote][:petition_id]).user_id == current_user.id
       redirect_to :back, alert: "Ошибка доступа"
     else
+      vote = Vote.new(vote_params.merge(user_id: current_user.id.to_s))
       vote.save ? flash.notice = "Голос засчитан" : flash.alert = "Вы уже голосовали"
       redirect_to :back
     end
