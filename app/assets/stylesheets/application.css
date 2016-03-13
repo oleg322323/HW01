@@ -96,12 +96,6 @@ form .field, form .actions {
   margin: 12px 0;
 }
 
-#petitions h2 {
-  font-size: 16px;
-  margin-bottom: 2px;
-  margin-top: 20px;
-}
-
 #petitions .info {
   font-style: italic;
   color: #333;
@@ -109,42 +103,9 @@ form .field, form .actions {
   font-size: 12px;
 }
 
-#petitions table, th, td {
-  border: 1px solid black;
-  padding: 6px;
-  padding-left: 12px;
-}
-#petitions table {
-  width: 70%;
-  border-collapse: collapse;
-}
-#petitions th {
-  height: 60px;
-  text-align: left;
-}
-#petitions td {
-  height: 30px;
-}
-
-
-
-#user_header {
-  float: right;
-}
-
-#petition_header {
-  float: right;
+#right_menu {
   text-align: right;
-  width: 150px;
-  border: 2px solid #b2b2ff;
-  padding: 5px;
-  margin: 4px;
-  margin-top: 20px;
-  background-color: #faf3be;
-  font-size: 15px;
-}
-#petition_header a {
-  line-height: 1.8;
+  margin-right: 0px;
 }
 
 #copyright {

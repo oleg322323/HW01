@@ -1,26 +1,31 @@
+<h3 class="text-muted">Петиция</h3>
+
 <div id="petitions">
-  <h1>Петиция</h1>
-  <h2><%= @petition.title %></h2>
-  <div class="info">
-    Создана:
-    <%= @petition.user.first_name %>
-    <%= @petition.user.last_name %>, 
-    <%= @petition.created_at.strftime('%d/%m/%Y %k:%M') %>
-  </div>
-  <div class="content">
-    <%= simple_format( @petition.text.gsub(/[<>]/, '<' => '&lt;', '>' => '&gt;') ) %>
-  </div><br />
+  <table class="table">
+    <tr><td>
+      <h3 class="text-primary"><%= @petition.title %></h3>
+      <div class="info">
+        Создана:
+        <%= @petition.user.first_name %>
+        <%= @petition.user.last_name %>,
+        <%= @petition.created_at.strftime('%d/%m/%Y %k:%M') %>
+      </div>
+    </td></tr>
+    <tr><td>
+      <div class="content">
+        <%= simple_format( @petition.text.gsub(/[<>]/, '<' => '&lt;', '>' => '&gt;') ) %>
+      </div><br />
+    </td></tr>
+  </table>
   <p>Голосов: <%= @petition.votes.count %></p>
-
-
   <% if !current_user.nil? && current_user.id != @petition.user.id %>
       <div class="actions">
         <%= button_to "Поддержать", votes_path(vote: {petition_id: @petition}), method: :post %>
       </div>
   <% else %>
-      <table style="width: 100px">
-        <tr><td><%= link_to "Изменить", edit_petition_path(@petition) %></td></tr>
-        <tr><td><%= link_to "Удалить", @petition, method: :delete, data: { confirm: 'Вы уверены?' } %></td></tr>
+      <table class="table" style="width: 100px">
+        <tr><td class="success"><%= link_to "Изменить", edit_petition_path(@petition) %></td></tr>
+        <tr><td class="danger"><%= link_to "Удалить", @petition, method: :delete, data: { confirm: 'Вы уверены?' } %></td></tr>
       </table>
   <% end %>
 </div>
