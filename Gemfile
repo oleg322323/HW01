@@ -34,7 +34,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'pusher'
 gem 'resque'
-
+gem 'whenever'
 
 # gem "therubyracer"
 # gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
@@ -51,6 +51,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'letter_opener'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 

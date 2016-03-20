@@ -6,7 +6,7 @@ class VotesController < ApplicationController
       redirect_to :back, alert: "Ошибка доступа"
     else
       vote = Vote.new(vote_params.merge(user_id: current_user.id.to_s))
-      vote.save ? flash.notice = "Голос засчитан" : flash.alert = "Вы уже голосовали"
+      vote.save ? flash.notice = "Голос засчитан" : flash.alert = vote::errors.messages #"Вы уже голосовали"
       redirect_to :back
     end
   end
