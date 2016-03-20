@@ -5,35 +5,52 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <div id="container">
-  <div id="user_header">
-    <% if current_user %>
-        <%= current_user.email %>&nbsp;
-        (<%= link_to 'Выйти', logout_path %>)
-    <% else %>
-        <%= link_to 'Зарегистрироваться', signup_path %> |
-        <%= link_to 'Войти', login_path %>
-    <% end %>
-  </div>
 
+  <table class="table">
+    <tr class="active">
+      <td>
+        <div id="header">
+          <h4><%= link_to 'Онлайн петиции нашего района', root_path %></h4>
+        </div>
+      </td>
+      <td>
+        <div id="user_header">
+          <% if current_user %>
+              <%= current_user.email %>&nbsp;
+              (<%= link_to 'Выйти', logout_path %>)
+          <% else %>
+              <%= link_to 'Зарегистрироваться', signup_path %> |
+              <%= link_to 'Войти', login_path %>
+          <% end %>
+        </div>
+      </td>
+  </table>
   <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, id: "flash_#{name}" %>
   <% end %>
 
-  <div id="header">
-    <h2><%= link_to 'Онлайн петиции нашего района', root_path %></h2>
-  </div>
-
-  <div id="petition_header">
-    <%= link_to "Все петиции", petitions_path( count: "all" ) %><br />
-    <% if current_user %>
-        <%= link_to "Создать петицию", new_petition_path %><br />
-        <%= link_to "Мои петиции", petitions_path( user: current_user ) %>
-    <% else %>
-        <%= link_to "Создать петицию", login_path %>
+  <div id="right_menu" class="nav navbar-nav navbar-right">
+    <table class="table" style="width: 150px">
+      <tr class="active"><td>
+        <%= link_to "Все петиции", petitions_path( count: "all" ) %>
+      </td></tr>
+      <% if current_user %>
+          <tr class="active"><td>
+            <%= link_to "Создать петицию", new_petition_path %>
+          </td></tr>
+          <tr class="active"><td>
+            <%= link_to "Мои петиции", petitions_path( user: current_user ) %>
+          </td></tr>
+      <% else %>
+          <tr class="active"><td>
+            <%= link_to "Создать петицию", login_path %>
+          </td></tr>
     <% end %>
+    </table>
   </div>
 
   <%= yield %>

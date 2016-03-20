@@ -3,4 +3,5 @@ class Petition < ActiveRecord::Base
   validates :text, presence: true
   #ассоциации
   belongs_to :user
+  has_many :votes
 end
