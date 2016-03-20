@@ -96,11 +96,18 @@ a {
 form .field, form .actions {
   margin: 12px 0;
 }
+.actions table {
+  width: 100px
+}
 
 table {
   background-color: #f4f4f4;
 }
 
+#petitions .votes-count {
+  color: #333;
+  font-size: 12px;
+}
 #petitions .info {
   font-style: italic;
   color: #333;

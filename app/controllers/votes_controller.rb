@@ -3,10 +3,10 @@ class VotesController < ApplicationController
 
   def create
     if Petition.find(params[:vote][:petition_id]).user_id == current_user.id
-      redirect_to :back, alert: "Ошибка доступа"
+      redirect_to :back, alert: 'Ошибка доступа'
     else
       vote = Vote.new(vote_params.merge(user_id: current_user.id.to_s))
-      vote.save ? flash.notice = "Голос засчитан" : flash.alert = vote::errors.messages #"Вы уже голосовали"
+      vote.save ? flash.notice = 'Голос засчитан' : flash.alert = vote::errors.messages.map{ |k, v| v[0] }.join(', ')
       redirect_to :back
     end
   end

@@ -13,7 +13,7 @@ class Petition < ActiveRecord::Base
   end
 
   def expired?
-    created_at<self.class::DAYS_TO_CHECK.days.ago
+    created_at < self.class::DAYS_TO_CHECK.days.ago
   end
 
   def check!

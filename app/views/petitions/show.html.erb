@@ -17,17 +17,28 @@
       </div><br />
     </td></tr>
   </table>
-  <p>Голосов: <%= @petition.votes.count %></p>
-  <% if !current_user.nil? && current_user.id != @petition.user.id %>
-      <div class="actions">
-        <%= button_to "Поддержать", votes_path(vote: {petition_id: @petition}), method: :post %>
-      </div>
-  <% else %>
-      <table class="table" style="width: 100px">
+  <div class="votes-count">
+    <p>Голосов: <%= @petition.votes.count %></p>
+    <p>
+      <% if @petition.expired? %>
+          завершена <%= time_left %> назад.
+      <% else %>
+          осталось <%= time_left %>.
+      <% end %>
+    </p>
+  </div>
+  <div class="actions">
+    <% if !current_user.nil? && current_user.id != @petition.user.id %>
         <% unless @petition.expired? %>
-            <tr><td class="success"><%= link_to "Изменить", edit_petition_path(@petition) %></td></tr>
+          <%= button_to "Поддержать", votes_path(vote: {petition_id: @petition}), method: :post %>
         <% end %>
-        <tr><td class="danger"><%= link_to "Удалить", @petition, method: :delete, data: { confirm: 'Вы уверены?' } %></td></tr>
-      </table>
-  <% end %>
+    <% else %>
+        <table class="table">
+          <% unless @petition.expired? %>
+              <tr><td class="success"><%= link_to "Изменить", edit_petition_path(@petition) %></td></tr>
+          <% end %>
+          <tr><td class="danger"><%= link_to "Удалить", @petition, method: :delete, data: { confirm: 'Вы уверены?' } %></td></tr>
+        </table>
+    <% end %>
+  </div>
 </div>
