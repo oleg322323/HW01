@@ -15,8 +15,8 @@
  */
 
 body {
-  /*background-color: #4B7399;*/
   background-color: #ffb224;
+  background-image:url('background_body.png');
   font-family: Verdana, Helvetica, Arial;
   font-size: 14px;
 }
@@ -42,6 +42,7 @@ a {
   padding: 20px 40px;
   border: solid 1px black;
   margin-top: 20px;
+  background-image:url('background_paper.jpg');
 }
 
 #flash_notice, #flash_error, #flash_alert {
@@ -95,12 +96,31 @@ a {
 form .field, form .actions {
   margin: 12px 0;
 }
+.actions table {
+  width: 100px
+}
 
+table {
+  background-color: #f4f4f4;
+}
+
+#petitions .votes-count {
+  color: #333;
+  font-size: 12px;
+}
 #petitions .info {
   font-style: italic;
   color: #333;
   margin-bottom: 8px;
   font-size: 12px;
+}
+
+.content {
+  padding: 20px;
+  border: 1px solid #eee;
+  border-left-width: 2px;
+  border-radius: 3px;
+  background-color: white;
 }
 
 #right_menu {

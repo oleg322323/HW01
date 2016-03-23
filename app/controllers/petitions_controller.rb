@@ -9,31 +9,33 @@ class PetitionsController < ApplicationController
   #POST /petitions
   def create
     # @petition = Petition.new(petition_params)
-    @petition = current_user.petitions.build(petition_params)
+    @petition = current_user.petitions.build(petition_params.merge(checked: false))
     if @petition.save
+      # UserMailer.petition_created(@petition).deliver_later
+      # VotingEndingJob.perform_later
       redirect_to @petition, notice: "Петиция \"#{@petition.title}\" создана!"
     else
-      render "new"
+      render 'new'
     end
   end
 
   def index
     @petitions = {} #объявляем как пустой хешик, иначе ошибка
     if params[:user].nil? #нет ссылки на юзера
-      if params[:count] == "all"
+      if params[:count] == 'all'
         @petitions[:type] = 0
         @petitions[:list] = Petition.all
-        @petitions[:header] = "Все петиции"
+        @petitions[:header] = 'Все петиции'
       else
         @petitions[:type] = 1
         @petitions[:list] = Petition.all.last(10)
-        @petitions[:header] = "Последние петиции"
+        @petitions[:header] = 'Последние петиции'
       end
     else #есть (ссылка на странице ведёт на свой ид, но можно вставить чужой)
       @petitions[:list] = Petition.all.select{ |petition| petition.user_id.to_s == params[:user] }
       if !(current_user.nil?) && params[:user] == current_user.id.to_s
         @petitions[:type] = 2
-        @petitions[:header] = "Мои петиции"
+        @petitions[:header] = 'Мои петиции'
       else
         @petitions[:type] = 3
         @petitions[:header] = "Петиции пользователя #{User.find(params[:user]).last_name} #{User.find(params[:user]).first_name}"
@@ -51,22 +53,25 @@ class PetitionsController < ApplicationController
 
   def update
     petition = Petition.find(params[:id])
-    if petition.user != current_user #тест несанкционированного доступа
-      redirect_to :back, alert: "Ошибка доступа"
-    else
-      name = petition.title
-      if petition.update_attributes(petition_params)
-        redirect_to petition, notice: "Петиция \"#{name}\" обновлена"
+    case
+      when petition.user != current_user
+        redirect_to :back, alert: 'Ошибка доступа'
+      when petition.expired?
+        redirect_to :back, alert: 'Петиция просрочена'
       else
-        render "edit"
-      end
+        name = petition.title
+        if petition.update_attributes(petition_params)
+          redirect_to petition, notice: "Петиция \"#{name}\" обновлена"
+        else
+          render 'edit'
+        end
     end
   end
 
   def destroy
     petition = Petition.find(params[:id])
     if petition.user != current_user
-      redirect_to :back, alert: "Ошибка доступа"
+      redirect_to :back, alert: 'Ошибка доступа'
     else
       name = petition.title
       petition.destroy

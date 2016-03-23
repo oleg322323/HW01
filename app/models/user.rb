@@ -7,4 +7,5 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true, length: { minimum: 2 }
   #ассоциации
   has_many :petitions
+  has_many :votes
 end
